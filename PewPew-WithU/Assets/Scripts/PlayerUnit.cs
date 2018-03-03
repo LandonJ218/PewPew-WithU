@@ -25,10 +25,18 @@ public class PlayerUnit : NetworkBehaviour {
 
         if (!hasAuthority)
         {
-            mPlayerCam.SetActive(false);
+            if(mPlayerCam.GetComponent<Camera>() != null && mPlayerCam.GetComponent<AudioListener>())
+            {
+                mPlayerCam.GetComponent<Camera>().enabled = false;
+                mPlayerCam.GetComponent<AudioListener>().enabled = false;
+            }
             return;
         }
-        mPlayerCam.SetActive(true);
+        if (mPlayerCam.GetComponent<Camera>() != null && mPlayerCam.GetComponent<AudioListener>())
+        {
+            mPlayerCam.GetComponent<Camera>().enabled = true;
+            mPlayerCam.GetComponent<AudioListener>().enabled = true;
+        }
         SetCursorLock();
         Camera lSceneCamera;
         lSceneCamera = Camera.main;
